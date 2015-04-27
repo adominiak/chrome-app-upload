@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>File upload test</title>
+</head>
+<body>
+  <h1>Hello</h1>
+
+  <div id="files-remembered">
+
+  </div>
+  <div>
+    <h3>Saving all data to local storage base64</h3>
+    <input type="button" id="showImageLocalStorage" value="ShowImage">
+    <input type = "file" id="buttonLocalStorage">
+  </div>
+
+  <div>
+    <h3>Copying all files to sandbox file system or saving to disk</h3>
+    <input type="button" id="showImagePathStorage" value="ShowImage">
+    <input type = "file" id="buttonPathStorage">
+  </div>
+
+  <input type="button" id="saveToDrive" value="Save">
+
+  <img id="image1">
+
+  <script src="js/files.js"></script>
+</body>
+</html>
