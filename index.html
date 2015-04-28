@@ -6,27 +6,30 @@
   <title>File upload test</title>
 </head>
 <body>
-  <h1>Hello</h1>
+  <h1>File handling in chrome apps</h1>
 
   <div id="files-remembered">
 
   </div>
-  <div>
-    <h3>Saving all data to local storage base64</h3>
-    <input type="button" id="showImageLocalStorage" value="ShowImage">
-    <input type = "file" id="buttonLocalStorage">
-  </div>
+
 
   <div>
-    <h3>Copying all files to sandbox file system or saving to disk</h3>
-    <input type="button" id="showImagePathStorage" value="ShowImage">
-    <input type = "file" id="buttonPathStorage">
+    <h3>Read from disk and write to disk</h3>
+    <p> Current file: <span id = "currentFile">None</span>  </p>
+    <input type = "button" id="uploadFile" value = "Choose file">
+    <input type = "button" id="showImage" value = "Show">
+    <input type = "button" id="saveToDrive" value = "Save">
   </div>
 
-  <input type="button" id="saveToDrive" value="Save">
+<!--   <div>
+    <h3>Sandbox Option</h3>
+    <input type = "button" id = "copyToSanbox" value = "Choose file to copy to sandbox">
+    <input type = "button" id = "showImage" value = "Show from Sandbox">
+    <input type = "button" id = "saveToSandbox" value = "Save">
+  </div> -->
 
   <img id="image1">
 
-  <script src="js/files.js"></script>
+  <script src="js/FileHandler.js"></script>
 </body>
 </html>
