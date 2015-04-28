@@ -46,7 +46,7 @@
         if (!results.length) {
           for (var i = entries.length - 1; i >= 0; i--) {
             self.addItemToList(entries[i].name);
-          };
+          }
         } else {
           entries = entries.concat(Array.prototype.slice.call(results, 0));
           readEntries();
@@ -107,13 +107,13 @@
     name = name || this.currentFile.name;
     this.fs.root.getFile(name, {}, function(fileEntry) {
       fileEntry.file(function(file) {
-         var reader = new FileReader();
+        var reader = new FileReader();
 
-         reader.onloadend = function(e) {
-           self.currentFile = fileEntry;
-           self.currentFileName.innerHTML = fileEntry.name;
-         };
-         reader.readAsDataURL(file);
+        reader.onloadend = function(e) {
+          self.currentFile = fileEntry;
+          self.currentFileName.innerHTML = fileEntry.name;
+        };
+        reader.readAsDataURL(file);
       }, self.errorHandler);
 
     }, self.errorHandler);

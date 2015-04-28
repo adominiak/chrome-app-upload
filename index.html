@@ -10,13 +10,13 @@
 
 
 
-
   <div>
-    <h3>Read from disk and write to disk</h3>
-    <p> Current file: <span id = "currentFile">None</span>  </p>
-    <input type = "button" id="uploadFile" value = "Choose file">
-    <input type = "button" id="showImage" value = "Show">
-    <input type = "button" id="saveToDrive" value = "Save">
+    <h3>Read from disk and write to disk (Choose dir first!)</h3>
+    <!-- <p> Current file: <span id = "currentFile">None</span>  </p> -->
+    <input type = "button" id="directoryChoose" value = "Choose directory">
+    <form action="#" method="post" enctype="multipart/form-data">
+    <input type = "file" id="uploadFile1" value = "Choose file" multiple="" />
+  </form>
   </div>
 
   <div>
@@ -36,5 +36,6 @@
 
   <script src="js/FileHandler.js"></script>
   <script src="js/SandboxFileHandler.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
