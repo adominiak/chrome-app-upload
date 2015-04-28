@@ -17,6 +17,8 @@
 
     this.buttonSaveToSandbox= document.getElementById("saveToSandbox");
 
+    this.buttonDeleteFromSandbox = document.getElementById("deleteFileSandbox");
+
     this.buttonShowImage = document.getElementById("showImageSandbox");
 
     this.fs = null;
@@ -28,11 +30,37 @@
 
   SandboxFileHandler.prototype.onInitFs = function(filesystem) {
     this.fs = filesystem;
+    this.reloadExistingFiles();
+  };
+
+
+  SandboxFileHandler.prototype.reloadExistingFiles = function() {
+    var self = this;
+    this.fileList.innerHTML = "";
+    var dirReader = this.fs.root.createReader();
+    var entries = [];
+
+    // Call the reader.readEntries() until no more results are returned.
+    var readEntries = function() {
+      dirReader.readEntries (function(results) {
+        if (!results.length) {
+          for (var i = entries.length - 1; i >= 0; i--) {
+            self.addItemToList(entries[i].name);
+          };
+        } else {
+          entries = entries.concat(Array.prototype.slice.call(results, 0));
+          readEntries();
+        }
+      }, self.errorHandler);
+    };
+
+    readEntries(); // Start reading dirs.
   };
 
   SandboxFileHandler.prototype.bindEvents = function() {
     this.buttonUpload.addEventListener('click', this.openFileFromChosenLocation.bind(this));
     this.buttonSaveToSandbox.addEventListener('click', this.saveFileToSandbox.bind(this));
+    this.buttonDeleteFromSandbox.addEventListener('click', this.deleteFileFromSandbox.bind(this));
     this.buttonShowImage.addEventListener('click', this.showImage.bind(this));
   };
 
@@ -83,9 +111,23 @@
 
          reader.onloadend = function(e) {
            self.currentFile = fileEntry;
-           self.currentFileName = fileEntry.name;
+           self.currentFileName.innerHTML = fileEntry.name;
          };
          reader.readAsDataURL(file);
+      }, self.errorHandler);
+
+    }, self.errorHandler);
+  };
+
+  SandboxFileHandler.prototype.deleteFileFromSandbox = function() {
+    var self = this;
+    this.fs.root.getFile( this.currentFile.name, {create: false}, function(fileEntry) {
+
+      fileEntry.remove(function() {
+        console.log('File removed.');
+        self.reloadExistingFiles();
+        self.currentFile = null;
+        self.currentFileName.innerHTML = "None";
       }, self.errorHandler);
 
     }, self.errorHandler);

@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Codelab - Step 3",
+  "name": "File upload test",
   "version": "1",
   "icons": {
     "128": "icon_128.png"
