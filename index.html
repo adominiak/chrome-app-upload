@@ -8,9 +8,7 @@
 <body>
   <h1>File handling in chrome apps</h1>
 
-  <div id="files-remembered">
 
-  </div>
 
 
   <div>
@@ -21,15 +19,21 @@
     <input type = "button" id="saveToDrive" value = "Save">
   </div>
 
-<!--   <div>
+  <div>
     <h3>Sandbox Option</h3>
-    <input type = "button" id = "copyToSanbox" value = "Choose file to copy to sandbox">
-    <input type = "button" id = "showImage" value = "Show from Sandbox">
-    <input type = "button" id = "saveToSandbox" value = "Save">
-  </div> -->
+    <h4>uploaded files</h4>
+    <div id="files-remembered">
+
+    </div>
+    <p> Current file: <span id = "currentFileSandbox">None</span>  </p>
+    <input type = "button" id="uploadFileSandbox" value = "Choose file">
+    <input type = "button" id="saveToSandbox" value = "Save to sandbox">
+    <input type = "button" id="showImageSandbox" value = "Show from sandbox">
+  </div>
 
   <img id="image1">
 
   <script src="js/FileHandler.js"></script>
+  <script src="js/SandboxFileHandler.js"></script>
 </body>
 </html>
