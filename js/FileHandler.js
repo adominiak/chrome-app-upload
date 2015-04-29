@@ -39,9 +39,9 @@
     //   this.buttonUpload.addEventListener('change', this.handleMultipleFiles.bind(this));
     // } else {
     this.buttonUpload.addEventListener('click', this.openFileFromChosenLocation.bind(this));
+    this.buttonUpload.addEventListener('drop', this.onDrop.bind(this));
     // }
     this.buttonSaveToDrive.addEventListener('click', this.saveFileToChosenLocation.bind(this));
-    // this.buttonShowImage.addEventListener('click', this.showImage.bind(this));
   };
 
   // FileHandler.prototype.handleMultipleFiles = function(e) {
@@ -65,25 +65,34 @@
   //   }
   // };
 
-  FileHandler.prototype.openFileFromChosenLocation = function(e) {
+
+  FileHandler.prototype.onDrop = function(e) {
     var self = this;
-    chrome.fileSystem.chooseEntry({type: 'openFile'}, function(readOnlyEntry) {
+    var entry = e.dataTransfer.items[0].webkitGetAsEntry();
+    this.handleFile(entry);
+  };
 
-      readOnlyEntry.file(function(file) {
-        var reader = new FileReader();
+  FileHandler.prototype.openFileFromChosenLocation = function(e) {
+    chrome.fileSystem.chooseEntry({type: 'openFile'}, this.handleFile.bind(this));
+  };
 
-        reader.onerror = self.errorHandler;
-        reader.onloadend = function(e) {
-          self._onFileUpload();
-          if(self._uploadToImage) {
-            self.loadToImage(e.target.result);
-          }
-          if(self._saveToDirectory) {
-            self.saveToDirectory(readOnlyEntry);
-          }
-        };
-        reader.readAsDataURL(file);
-      });
+
+  FileHandler.prototype.handleFile = function(fileEntry) {
+    var self = this;
+    fileEntry.file(function(file) {
+      var reader = new FileReader();
+
+      reader.onerror = self.errorHandler;
+      reader.onloadend = function(e) {
+        self._onFileUpload();
+        if(self._uploadToImage) {
+          self.loadToImage(e.target.result);
+        }
+        if(self._saveToDirectory) {
+          self.saveToDirectory(fileEntry);
+        }
+      };
+      reader.readAsDataURL(file);
     });
   };
 
